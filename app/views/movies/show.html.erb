@@ -1,0 +1,72 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-3">
+      <figure class="figure">
+        <img src="<%= @movie.poster_url %>" class="figure-img img-fluid rounded" alt="<%= @movie.title  %>">
+      </figure>
+    </div>
+    <div class="col-md-9">
+
+      <dl>
+        <dt>Title</dt>
+        <dd><%= @movie.title %></dd>
+
+        <dt>Year</dt>
+        <dd><%= @movie.year %></dd>
+
+        <dt>Runtime</dt>
+        <dd><%= @movie.runtime %></dd>
+
+        <dt>Genre</dt>
+        <dd><%= @movie.genre %></dd>
+
+        <dt><%= "Director".pluralize(@movie.directors.count)%></dt>
+        <dd>
+          <% @movie.directors.each do |director| %>
+            <%= link_to director, director %>
+            <%= ", ".html_safe unless director == @movie.directors.last %>
+          <% end %>
+        </dd>
+
+        <dt><%= "Actor".pluralize(@movie.actors.count)%></dt>
+        <dd>
+          <% @movie.actors.each do |actor| %>
+            <%= link_to actor, actor %>
+            <%= ", ".html_safe unless actor == @movie.actors.last %>
+          <% end %>
+        </dd>
+
+        <dt>Plot</dt>
+        <dd><%= @movie.plot %></dd>
+
+        <dt>Language</dt>
+        <dd><%= @movie.language %></dd>
+
+        <dt>Country</dt>
+        <dd><%= @movie.country %></dd>
+
+        <dt>Awards</dt>
+        <dd><%= @movie.awards %></dd>
+
+        <dt>Imdb</dt>
+        <dd><%= @movie.imdb_id %></dd>
+
+        <dt>Imdb rating</dt>
+        <dd>
+          <%= render_imdb_rating @movie.imdb_rating %>
+        </dd>
+
+      </dl>
+
+        <%= link_to '<i class="fa fa-cart-plus"></i> Add to Cart'.html_safe, add_to_cart_movie_path(@movie.id), class: "btn btn-success bt-small", remote: user_signed_in? %>
+
+        <% if can? :manage, Movie %>
+          <%= link_to 'Edit', edit_movie_path(@movie), class: "btn btn-primary" %>
+          <%= link_to 'List of Movies', movies_path, class: "btn btn-secondary" %>
+        <% end %>
+    </div>
+  </div>
+
+
+</div>

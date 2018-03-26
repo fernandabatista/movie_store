@@ -1,0 +1,10 @@
+<div class="container">
+  <h2><%= @actor %>'s movies</h2>
+
+  <%= render partial: "movies/movies", locals: {movies: @actor.movies} %>
+
+  <% if can? :manage, Actor %>
+    <%= link_to 'Edit', edit_actor_path(@actor), class: "btn btn-primary" %>
+    <%= link_to 'List of Actors', actors_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>
